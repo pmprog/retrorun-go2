@@ -81,39 +81,37 @@ void core_input_poll(void)
         input_exit_requested = true;
     }
 
-    if (go2_input_state_button_get(prevGamepadState, Go2InputButton_F3) == ButtonState_Released &&
-        go2_input_state_button_get(gamepadState, Go2InputButton_F3) == ButtonState_Pressed)
-    {
-        opt_backlight -= 10;
-        if (opt_backlight < 1) opt_backlight = 1;
-
-        printf("Backlight- = %d\n", opt_backlight);
-    }
-    if (go2_input_state_button_get(prevGamepadState, Go2InputButton_F4) == ButtonState_Released &&
-        go2_input_state_button_get(gamepadState, Go2InputButton_F4) == ButtonState_Pressed)
-    {
-        opt_backlight += 10;
-        if (opt_backlight > 100) opt_backlight = 100;
-        
-        printf("Backlight+ = %d\n", opt_backlight);
-    }
-
-
     if (go2_input_state_button_get(prevGamepadState, Go2InputButton_F5) == ButtonState_Released &&
         go2_input_state_button_get(gamepadState, Go2InputButton_F5) == ButtonState_Pressed)
     {
-        opt_volume -= 5;
-        if (opt_volume < 0) opt_volume = 0;
-
-        printf("Volume- = %d\n", opt_volume);
+        if( go2_input_state_button_get(gamepadState, Go2InputButton_F2) == ButtonState_Pressed )
+        {
+            opt_backlight -= 10;
+            if (opt_backlight < 1) opt_backlight = 1;
+            printf("Backlight- = %d\n", opt_backlight);
+        }
+        else
+        {
+            opt_volume -= 5;
+            if (opt_volume < 0) opt_volume = 0;
+            printf("Volume- = %d\n", opt_volume);
+        }
     }
     if (go2_input_state_button_get(prevGamepadState, Go2InputButton_F6) == ButtonState_Released &&
         go2_input_state_button_get(gamepadState, Go2InputButton_F6) == ButtonState_Pressed)
     {
-        opt_volume += 5;
-        if (opt_volume > 100) opt_volume = 100;
-
-        printf("Volume+ = %d\n", opt_volume);
+        if( go2_input_state_button_get(gamepadState, Go2InputButton_F2) == ButtonState_Pressed )
+        {
+            opt_backlight += 10;
+            if (opt_backlight > 100) opt_backlight = 100;
+            printf("Backlight+ = %d\n", opt_backlight);
+        }
+        else
+        {
+            opt_volume += 5;
+            if (opt_volume > 100) opt_volume = 100;
+            printf("Volume+ = %d\n", opt_volume);
+        }
     }
 
 }
