@@ -81,47 +81,41 @@ void core_input_poll(void)
         input_exit_requested = true;
     }
 
-    // if (!prevGamepadState.buttons.f2 && gamepadState.buttons.f2)
-    // {
-    //     screenshot_requested = true;
-    // }
-
-    if (go2_input_state_button_get(gamepadState, Go2InputButton_F4) == ButtonState_Pressed)
+    if (go2_input_state_button_get(prevGamepadState, Go2InputButton_F3) == ButtonState_Released &&
+        go2_input_state_button_get(gamepadState, Go2InputButton_F3) == ButtonState_Pressed)
     {
-        if (go2_input_state_button_get(gamepadState, Go2InputButton_DPadUp) == ButtonState_Pressed &&
-            go2_input_state_button_get(prevGamepadState, Go2InputButton_DPadUp) == ButtonState_Released)
-        {
-            opt_backlight += 10;
-            if (opt_backlight > 100) opt_backlight = 100;
-            
-            printf("Backlight+ = %d\n", opt_backlight);
-        }
-        else if (go2_input_state_button_get(gamepadState, Go2InputButton_DPadDown) == ButtonState_Pressed &&
-                 go2_input_state_button_get(prevGamepadState, Go2InputButton_DPadDown) == ButtonState_Released)
-        {
-            opt_backlight -= 10;
-            if (opt_backlight < 1) opt_backlight = 1;
+        opt_backlight -= 10;
+        if (opt_backlight < 1) opt_backlight = 1;
 
-            printf("Backlight- = %d\n", opt_backlight);
-        }
-
-        if (go2_input_state_button_get(gamepadState, Go2InputButton_DPadRight) == ButtonState_Pressed &&
-            go2_input_state_button_get(prevGamepadState, Go2InputButton_DPadRight) == ButtonState_Released)
-        {
-            opt_volume += 5;
-            if (opt_volume > 100) opt_volume = 100;
-
-            printf("Volume+ = %d\n", opt_volume);
-        }
-        else if (go2_input_state_button_get(gamepadState, Go2InputButton_DPadLeft) == ButtonState_Pressed &&
-                 go2_input_state_button_get(prevGamepadState, Go2InputButton_DPadLeft) == ButtonState_Released)
-        {
-            opt_volume -= 5;
-            if (opt_volume < 0) opt_volume = 0;
-
-            printf("Volume- = %d\n", opt_volume);
-        }
+        printf("Backlight- = %d\n", opt_backlight);
     }
+    if (go2_input_state_button_get(prevGamepadState, Go2InputButton_F4) == ButtonState_Released &&
+        go2_input_state_button_get(gamepadState, Go2InputButton_F4) == ButtonState_Pressed)
+    {
+        opt_backlight += 10;
+        if (opt_backlight > 100) opt_backlight = 100;
+        
+        printf("Backlight+ = %d\n", opt_backlight);
+    }
+
+
+    if (go2_input_state_button_get(prevGamepadState, Go2InputButton_F5) == ButtonState_Released &&
+        go2_input_state_button_get(gamepadState, Go2InputButton_F5) == ButtonState_Pressed)
+    {
+        opt_volume -= 5;
+        if (opt_volume < 0) opt_volume = 0;
+
+        printf("Volume- = %d\n", opt_volume);
+    }
+    if (go2_input_state_button_get(prevGamepadState, Go2InputButton_F6) == ButtonState_Released &&
+        go2_input_state_button_get(gamepadState, Go2InputButton_F6) == ButtonState_Pressed)
+    {
+        opt_volume += 5;
+        if (opt_volume > 100) opt_volume = 100;
+
+        printf("Volume+ = %d\n", opt_volume);
+    }
+
 }
 
 int16_t core_input_state(unsigned port, unsigned device, unsigned index, unsigned id)
